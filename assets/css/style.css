@@ -1,0 +1,16 @@
+
+
+
+
+
+
+
+#giphys {
+    clear: both;
+    display: inline;
+    flex-wrap: wrap;
+};
+
+#animalSearchForm {
+    float: right;
+};

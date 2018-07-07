@@ -19,7 +19,7 @@ function renderButtons() {
     // Providing the button's text with a value of the animalArray at index i
     a.text(animalArray[i]);
     // Adding the button to the HTML
-    $("#giphys").append(a);
+    $("#buttonsHere").append(a);
   }
 }
 
@@ -73,9 +73,10 @@ $.ajax({
 
       // Creating and storing an image tag
       var animalImage = $("<img>");
-      // Setting the src attribute of the image to a property pulled off the result item
+      // Making the giphy static
       animalImage.attr("src", results[i].images.fixed_height_still.url);
-
+      // Making the giphy animated
+      animalImage.attr("src", results[i].images.fixed_height.url);
       // Appending the paragraph and image tag to the animalDiv
       animalDiv.append(p);
       animalDiv.prepend(animalImage);

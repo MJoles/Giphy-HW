@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>Animal Giphys</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">;
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">;
   <style type="text/css">
     button,
     div,
@@ -12,22 +14,24 @@
       margin: 10px;
     }
   </style>
+  
 </head>
 
 <body>
 
-  <div class="container">
+  <div id="buttonsHere" class="container">
+  </div>
     <h1>Animal Search</h1>
 
-   
-    <form id="animalSearch">
-      <label for="animal-input">Enter a type of animal</label>
-      <input type="text" id="animal-input"><br>
+    <div id="animalSearchForm">
+      <form id="animalSearch">
+        <label for="animal-input">Enter a type of animal </label>
+        <input type="text" id="animal-input"><br>
 
-      <!-- Button triggers new movie to be added -->
-      <input id="add-animal" type="submit" value="Submit">
-    </form>
-
+       <!-- Button triggers new movie to be added -->
+        <input id="add-animal" type="submit" value="Submit">
+      </form>
+    </div>
      <!-- Animal Giphys go here -->
      <div id="giphys" class="container"></div>
 
@@ -36,7 +40,7 @@
       
     
     </script>
-  </div>
+  
 </body>
 
 </html>
