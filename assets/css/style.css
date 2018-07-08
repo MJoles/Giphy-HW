@@ -5,12 +5,20 @@
 
 
 
-#giphys {
-    clear: both;
-    display: inline;
-    flex-wrap: wrap;
-};
+
 
 #animalSearchForm {
     float: right;
 };
+
+input {
+    float: right;
+};
+
+#giphys {
+    margin: 0px;
+};
+
+animalDiv {
+    margin: 0px;
+}

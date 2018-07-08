@@ -5,13 +5,13 @@ var animalArray = ["Dog", "Cat", "Squirrel", "Elephant"];
 function renderButtons() {
 
   $("#giphys").empty();
-
+  $("#buttonsHere").empty()
   // For loop for animalArray
   for (var i = 0; i < animalArray.length; i++) {
 
     // Creating buttons for animalArray
    
-    var a = $("<button>");
+    var a = $("<button class='btn btn-primary'>");
     // Adding a class
     a.addClass("animalButton");
     // Adding a data-attribute with a value of the animalArray at index i
@@ -19,6 +19,7 @@ function renderButtons() {
     // Providing the button's text with a value of the animalArray at index i
     a.text(animalArray[i]);
     // Adding the button to the HTML
+    
     $("#buttonsHere").append(a);
   }
 }
@@ -39,25 +40,23 @@ $("#add-animal").on("click", function(event) {
 
 // Calling the renderButtons function at least once to display the initial list of animals
 renderButtons();
+//function displayAnimalGiphys {
+$(document).on("click", ".animalButton", function() {
+// Grabbing and storing the data-name property value from the button
+  animal = $(this).attr("data-name");
 
-$(".animalButton").on("click", function() {
-// Grabbing and storing the data-animal property value from the button
-animal = $(this).attr("data-name");
-console.log(this);
 
-// Constructing a queryURL using the animal name
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+  // Constructing a queryURL using the animal name
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
   animal + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-// Performing an AJAX request with the queryURL
-$.ajax({
-  url: queryURL,
-  method: "GET"
-})
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
   // After data comes back from the request
   .then(function(response) {
-    console.log(queryURL);
-
+    
     console.log(response);
     // storing the data from the AJAX request in the results variable
     var results = response.data;
@@ -65,24 +64,46 @@ $.ajax({
     // Looping through each result item
     for (var i = 0; i < results.length; i++) {
 
-      // Creating and storing a div tag
-      var animalDiv = $("<div class='col-md-4'>");
+      
+    var animalDiv = $("<div class='col-md-4'>");
 
       // Creating a paragraph tag with the result item's rating
-     var p = $("<p>").text("Rating: " + results[i].rating);
-
+      var p = $("<p>").text("Rating: " + results[i].rating);
+      var animalAnimated = results[i].images.fixed_height.url;
+      var animalStatic = results[i].images.fixed_height_still.url;
       // Creating and storing an image tag
       var animalImage = $("<img>");
+      animalImage.attr("src", animalStatic);
+      animalImage.addClass("animalGiphys");
+      animalImage.attr("data-state", "still");
+      animalImage.attr("data-still", animalStatic);
+      animalImage.attr("data-animate", animalAnimated);
       // Making the giphy static
-      animalImage.attr("src", results[i].images.fixed_height_still.url);
+      //animalImage.attr("src", results[i].images.fixed_height_still.url);
       // Making the giphy animated
-      animalImage.attr("src", results[i].images.fixed_height.url);
+      //animalImage.attr("src", results[i].images.fixed_height.url);
       // Appending the paragraph and image tag to the animalDiv
       animalDiv.append(p);
       animalDiv.prepend(animalImage);
 
-      // Appending animalDiv to giphys div 
-      $("#giphys").append(animalDiv);
+      // Prepending animalDiv to giphys div 
+      $("#giphys").prepend(animalDiv);
+
+      //$(document).on("click", "#giphys", );
+
+      $(document).on("click", "#giphys", giphysPausePlay);
+      //This is my function to make the giphys 
+      function giphysPausePlay() {
+        var state = $(this).attr("data-state");
+         if (state === "still") {
+           $(this).attr("src", $(this).attr("data-animate"));
+           $(this).attr("data-state", "animate");
+         } else {
+           $(this).attr("src", $(this).attr("data-still"));
+           $(this).attr("data-state", "still");
+          }
+      }
+
     }
   });
 });
